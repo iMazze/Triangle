@@ -11,9 +11,10 @@ public:
 
 	Triangle & operator= (const Triangle & src);
 
-	double a;
-	double b;
-	double c;
+	double m_a;
+	double m_b;
+	double m_c;
+	int * m_pData;
 
 	double getPerimeter();
 	bool isPerpeticular();

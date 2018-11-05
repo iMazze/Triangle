@@ -10,21 +10,21 @@ Triangle::Triangle(Triangle * ptr)
 {
 	if (ptr == nullptr) 
 	{
-		a = 0;
-		b = 0;
-		c = 0;
+		m_a = 0;
+		m_b = 0;
+		m_c = 0;
 	}
 	else
 	{
-		a = ptr->a; // Gleicher Typ -> Kann auf private zugreifen!
-		b = ptr->a;
-		c = ptr->a;
+		m_a = ptr->m_a; // Gleicher Typ -> Kann auf private zugreifen!
+		m_b = ptr->m_b;
+		m_c = ptr->m_c;
 	}
 	
 }
 
 Triangle::Triangle(const Triangle & ref)
-	:a(ref.a), b(ref.b), c(ref.c)
+	:m_a(ref.m_a), m_b(ref.m_b), m_c(ref.m_c)
 {
 }
 
@@ -34,9 +34,13 @@ Triangle::~Triangle()
 
 Triangle & Triangle::operator=(const Triangle & src)
 {
-	a = src.a;
-	b = src.b;
-	c = src.c;
+	m_a = src.m_a;
+	m_b = src.m_b;
+	m_c = src.m_c;
+
+	// Here we cant copy the pointer like this pDatm_a = src.pData;
+	m_pData = new int;
+	*m_pData = *src.m_pData;
 
 	return *this;
 }
@@ -44,27 +48,24 @@ Triangle & Triangle::operator=(const Triangle & src)
 Triangle::Triangle(double a, double b, double c) 
 
 {
-
-	this->a = a;
-	this->b = b;
-	this->c = c;
+	this->m_a = a;
+	this->m_b = b;
+	this->m_c = c;
 }
-
 
 double Triangle::getPerimeter()
 {
-	return a+b+c;
+	return m_a + m_b + m_c;
 }
-
 
 bool Triangle::isPerpeticular()
 {
-	return (std::pow(c,2) == std::pow(a, 2) + std::pow(b, 2) || std::pow(b, 2) == std::pow(a, 2) + std::pow(c, 2) || std::pow(a, 2) == std::pow(b, 2) + std::pow(c, 2));
+	return (std::pow(m_c,2) == std::pow(m_a, 2) + std::pow(m_b, 2) || std::pow(m_b, 2) == std::pow(m_a, 2) + std::pow(m_c, 2) || std::pow(m_a, 2) == std::pow(m_b, 2) + std::pow(m_c, 2));
 }
 
 double Triangle::getArea()
 {
 	// Satz des Heron
 	double s = (getPerimeter())/2;
-	return std::sqrt(s*(s-a)*(s-b)*(s-c));
+	return std::sqrt(s*(s- m_a)*(s- m_b)*(s- m_c));
 }
